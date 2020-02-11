@@ -13,8 +13,6 @@
 # ASK ABUOT DIRECTORYpwd
 
 import csv
-import decimal
-
 
 #declare variables
 Candidate = []      #array to hold Candidate Name
@@ -73,7 +71,8 @@ for  i in range (0, len(uniqueCandidates)):
     print(f"{uniqueCandidates[i]}: {str(round(Candidate.count(uniqueCandidates[i])/totalVotes*100,2))} ({Candidate.count(uniqueCandidates[i])})")
 
 
-
+# In a run off the two candidates with the most 
+# votes proceed to a second round, 
 print("-----------------------------------------")
 print(f"1st Advancing Candidate: {uniqueCandidates[0]}")
 print(f"2nd Advancing Candidate: {uniqueCandidates[1]}")
