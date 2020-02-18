@@ -1,6 +1,6 @@
 # The dataset is composed of three columns: 
 # Candidate, County, and Voter ID. 
-# Your task is to create a Python script that analyzes 
+# This Python script that analyzes 
 # the votes and calculates each of the following:
 
 # The total number of votes cast
@@ -10,105 +10,122 @@
 # Print the names of the two candidates who will 
 # advance to the runoff election.
 
-# ASK ABUOT DIRECTORYpwd
+# Need to do Directory os
 
 import csv
+import os
+#initialize paths for reading and writing files
+csvpath = os.path.join('.', 'houstonElection.csv')
+txt_output_path = os.path.join(".", "outputFiles", "new.txt")
 
-#declare variables
-Candidate = []      #array to hold Candidate Name
-County = []         #array to hold County Name
-VoterID = []        #array to hold VoterID
+#check input fle  files
+fileExists = os.path.isfile(csvpath) 
+if(fileExists):
+    totalVotes = 0      #holds total votes, initialize to 0
+    d = {}              #candidate dictionary.  Key is candidate name, value is populated with accumulated votes
 
-numVotes = []
-
-headerRow = True
-#read each row into sepaparte array
-with open('houstonElection.csv') as csvfile:
-    readCSV = csv.reader(csvfile, delimiter=',')
-    for row in readCSV:
-        if (headerRow):
-            headerRow = False
-        else:
-        #print(row)
-        #print(row[0] + " " + row[1])  #for debugging
-            Candidate.append(row[0])
-            County.append(row[1])
-            VoterID.append(row[2])
-
-uniqueCandidates = []
-for i in range (0,len(Candidate)):
-    #print(Candidate[i])
-    if(Candidate[i] not in uniqueCandidates):
-        #print (f"{Candidate[i]} not in there")
-        uniqueCandidates.append(Candidate[i])
-
-totalVotes = len(Candidate)
-
-#print(f"{uniqueCandidates[0]}: {Candidate.count(uniqueCandidates[0])/totalVotes} ({Candidate.count(uniqueCandidates[0])})")
-
-print(f"Total Cast Votes {totalVotes}")
-
-for  i in range (0, len(uniqueCandidates)):
-#     print(Candidate.count(uniqueCandidates[i]))
-    #print(f"{uniqueCandidates[i]}: {Candidate.count(uniqueCandidates[i])/totalVotes} ({Candidate.count(uniqueCandidates[i])})")
-    numVotes.append(Candidate.count(uniqueCandidates[i]))
-  
+    #read each row populating the dictionary with unique candidate names
+    #and accumulating the number of votes
+    with open(csvpath, encoding="utf-8") as csvfile:
+      readCSV = csv.DictReader(csvfile, delimiter=',')
+      for row in readCSV:
+        if row['Candidate'] not in d:  # add the candidate to the dictionary
+            d[row['Candidate']] = 1    #set candidate votes to 1
+        else: ## add one
+            d[row['Candidate']] += 1   # if they are already in the dictionary 
+                                       # increment vote total by 1
+   
 
 
 
-print("\nHouston Mayoral Election Results ")
-print("----------------------------------------- ")
-print(f"Total Cast Votes:{totalVotes}")
-print("----------------------------------------- ")
-
-# print(numVotes)
-# print(uniqueCandidates)
-numVotes, uniqueCandidates = zip(*sorted(zip(numVotes, uniqueCandidates), reverse=True))
-#print("\n\n",numVotes)
-#print(uniqueCandidates)
-
-for  i in range (0, len(uniqueCandidates)):
-    print(f"{uniqueCandidates[i]}: {str(round(Candidate.count(uniqueCandidates[i])/totalVotes*100,2))} ({Candidate.count(uniqueCandidates[i])})")
 
 
-# In a run off the two candidates with the most 
-# votes proceed to a second round, 
-print("-----------------------------------------")
-print(f"1st Advancing Candidate: {uniqueCandidates[0]}")
-print(f"2nd Advancing Candidate: {uniqueCandidates[1]}")
-print("-----------------------------------------")
+    #print(d) #DEBUGGING
+    #sum total votes
+    totalVotes = sum(d.values())
+
+    #sort the dictionary on value
+    sorted_d = sorted(((value, key) for (key,value) in d.items()), reverse=True)
+
+    #print(sorted_d) #DEBUGGING
+
+    #print formated results to the screen
+    print("\nHouston Mayoral Election Results ")
+    print("----------------------------------------- ")
+    print(f"Total Cast Votes:{totalVotes}")
+    print("----------------------------------------- ")
+
+    for c in sorted_d:
+     print(f"{c[1]}: {(c[0]/totalVotes)*100:2.2f} ({c[0]}) ")
+
+    # In a run off the two candidates with the most 
+    # votes proceed to a second round
+    #print formated results to the screen
+
+    print("-----------------------------------------")
+    print(f"1st Advancing Candidate: {sorted_d[0][1]}")
+    print(f"2nd Advancing Candidate: {sorted_d[1][1]}")
+    print("-----------------------------------------")
 
 
-# print(len(Candidate))
-# print(Candidate.count("Sylvester Turner")/len(Candidate))
-# print(Candidate.count("Tony Buzbee")/len(Candidate))
-# print(Candidate.count("Bill King")/len(Candidate))
-# print(Candidate.count("Dwight A. Boykins")/len(Candidate))
-# print(Candidate.count("Victoria Romero")/len(Candidate))
-# print(Candidate.count("Victoria Romero")/len(Candidate))
-# print(Candidate.count("Victoria Romero")/len(Candidate))
+    writeFileExists = os.path.isfile(txt_output_path)
+
+    if(writeFileExists):
+        openMode = 'w'
+    else:
+        openMode = 'x'
+    with open(txt_output_path, openMode) as outputFile:
+    #print formated results to a text file
+        outputFile.write("\nHouston Mayoral Election Results \n")
+        outputFile.write("----------------------------------------- \n")
+        outputFile.write(f"Total Cast Votes:{totalVotes} \n")
+        outputFile.write("----------------------------------------- \n")
+
+        for c in sorted_d:
+            outputFile.write(f"{c[1]}: {(c[0]/totalVotes)*100:2.2f} ({c[0]}) \n")
+        outputFile.write("----------------------------------------- \n")
+        outputFile.write(f"1st Advancing Candidate: {sorted_d[0][1]} \n")
+        outputFile.write(f"2nd Advancing Candidate: {sorted_d[1][1]} \n")
+        outputFile.write("----------------------------------------- \n")
+else:
+    print(f"ERROR: INPUT FILE {csvpath} does not exist, please check your path and filename")
 
 
-# # Houston Mayoral Election Results
-# -----------------------------------------
-# Total Cast Votes: 241032
-# -----------------------------------------
-# Sylvester Turner: 46.38% (111789)
-# Tony Buzbee: 28.78% (69361)
-# Bill King: 14.01% (33772)
-# Dwight A. Boykins: 5.90% (14212)
-# Victoria Romero: 1.22% (2933)
-# Sue Lovell: 1.22% (2932)
-# Demetria Smith: 0.70% (1694)
-# Roy J. Vasquez: 0.65% (1556)
-# Kendall Baker: 0.41% (982)
-# Derrick Broze: 0.28% (686)
-# Naoufal Houjami: 0.23% (560)
-# Johnny “J.T.” Taylor: 0.23% (555)
-# -----------------------------------------
-# 1st Advancing Candidate: Sylvester Turner
-# 2nd Advancing Candidate: Tony Buzbee
-# -----------------------------------------
 
+#print formated results to the a new csv file
+# Open the file using "write" mode. Specify the variable to hold the contents
+# with open(output_path, 'w') as csvfile:
 
-changes = []
+#     # Initialize csv.writer
+#     csvwriter = csv.writer(csvfile, delimiter=',')
+
+#     # Write the first row (column headers)
+#     csvwriter.writerow(['Candidate', 'Percentage of Votes', 'Number of Votes'])
+#     for c in sorted_d:
+#             csvwriter.writerow([f"{c[1]}", f"{(c[0]/totalVotes)*100:2.2f}", f"{c[0]}"])
+#     csvwriter.writerow(["-----------------------------------------"])
+#     csvwriter.writerow([f"1st Advancing Candidate: {sorted_d[0][1]}"])
+#     csvwriter.writerow([f"2nd Advancing Candidate: {sorted_d[1][1]}"])
+#     csvwriter.writerow(["-----------------------------------------"])
+
+# # # Houston Mayoral Election Results
+# # -----------------------------------------
+# # Total Cast Votes: 241032
+# # -----------------------------------------
+# # Sylvester Turner: 46.38% (111789)
+# # Tony Buzbee: 28.78% (69361)
+# # Bill King: 14.01% (33772)
+# # Dwight A. Boykins: 5.90% (14212)
+# # Victoria Romero: 1.22% (2933)
+# # Sue Lovell: 1.22% (2932)
+# # Demetria Smith: 0.70% (1694)
+# # Roy J. Vasquez: 0.65% (1556)
+# # Kendall Baker: 0.41% (982)
+# # Derrick Broze: 0.28% (686)
+# # Naoufal Houjami: 0.23% (560)
+# # Johnny “J.T.” Taylor: 0.23% (555)
+# # -----------------------------------------
+# # 1st Advancing Candidate: Sylvester Turner
+# # 2nd Advancing Candidate: Tony Buzbee
+# # -----------------------------------------
+
