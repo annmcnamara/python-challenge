@@ -1,7 +1,4 @@
-<H1>Python Homework 
-*Ann McNamara, February 2020*
-
-## PyElections
+# PyElections
 ## Problem Statement
 This challenge addresses the problem of helping the city of Houston modernize its vote-counting process for the next mayoral elections. No candidate won a majority (over 50%) of the vote during the general election that took place on November 5, 2019. The 2019 Houston mayoral election was decided by a runoff on December 14, 2019 to elect the Mayor of Space City. 
 The scope of this project was to write a script that will decide the two candidates with the highest number of votes who will advance to the runoff election. 
@@ -26,7 +23,7 @@ if the file exists it is overwritten
 otherwise it is created
 
 
-## PyBank Solution 
+# PyFinances
 
 * Still within the `print_percentages()` function, create a conditional that checks a wrestler's loss percentage and prints either "Jobber" to the screen if the number was greater than fifty or "Superstar" if the number was less than 50.
 
