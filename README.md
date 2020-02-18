@@ -17,12 +17,12 @@ The scope of this project was to write a script that will decide the two candida
 ## PyFinances Solution (in folder PyBank)
 The task is to create a Python script for analyzing the financial records of your company. A set of financial data called budget_data.csv is provide. The dataset is composed of two columns: Profit/Losses and Date. 
 
-*The Python script analyzes the records to calculate each of the following:
-	*The total number of months included in the dataset
-	*The net total amount of "Profit/Losses" over the entire period
-	*The average of the changes in "Profit/Losses" over the entire period
-	*The greatest increase in profits (date and amount) over the entire period
-	*The greatest decrease in losses (date and amount) over the entire period)
+* The Python script analyzes the records to calculate each of the following:
+	* The total number of months included in the dataset
+	* The net total amount of "Profit/Losses" over the entire period
+	* The average of the changes in "Profit/Losses" over the entire period
+	* The greatest increase in profits (date and amount) over the entire period
+	* The greatest decrease in losses (date and amount) over the entire period)
 
 The script prints the analysis to the terminal and exports a text file with the results. If the file exists it is overwritten, otherwise a new file is created. 
 
