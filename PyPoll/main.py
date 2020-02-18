@@ -1,6 +1,9 @@
+# main.py
+# Ann McNamara, February 2020
+# 
 # The dataset is composed of three columns: 
 # Candidate, County, and Voter ID. 
-# This Python script that analyzes 
+# This Python script analyzes 
 # the votes and calculates each of the following:
 
 # The total number of votes cast
@@ -10,13 +13,15 @@
 # Print the names of the two candidates who will 
 # advance to the runoff election.
 
-# Need to do Directory os
+# Data is written to an output file
+# if the file exists it is overwritten
+# otherwise it is created
 
 import csv
 import os
 #initialize paths for reading and writing files
-csvpath = os.path.join('.', 'houstonElection.csv')
-txt_output_path = os.path.join(".", "outputFiles", "new.txt")
+csvpath = os.path.join('.', 'houston_election_data.csv')
+txt_output_path = os.path.join(".", "houston_election_results.txt")
 
 #check input fle  files
 fileExists = os.path.isfile(csvpath) 
@@ -26,7 +31,7 @@ if(fileExists):
 
     #read each row populating the dictionary with unique candidate names
     #and accumulating the number of votes
-    with open(csvpath, encoding="utf-8") as csvfile:
+    with open(csvpath) as csvfile:
       readCSV = csv.DictReader(csvfile, delimiter=',')
       for row in readCSV:
         if row['Candidate'] not in d:  # add the candidate to the dictionary
@@ -37,17 +42,12 @@ if(fileExists):
    
 
 
-
-
-
-    #print(d) #DEBUGGING
     #sum total votes
     totalVotes = sum(d.values())
 
     #sort the dictionary on value
     sorted_d = sorted(((value, key) for (key,value) in d.items()), reverse=True)
 
-    #print(sorted_d) #DEBUGGING
 
     #print formated results to the screen
     print("\nHouston Mayoral Election Results ")
@@ -90,23 +90,6 @@ if(fileExists):
 else:
     print(f"ERROR: INPUT FILE {csvpath} does not exist, please check your path and filename")
 
-
-
-#print formated results to the a new csv file
-# Open the file using "write" mode. Specify the variable to hold the contents
-# with open(output_path, 'w') as csvfile:
-
-#     # Initialize csv.writer
-#     csvwriter = csv.writer(csvfile, delimiter=',')
-
-#     # Write the first row (column headers)
-#     csvwriter.writerow(['Candidate', 'Percentage of Votes', 'Number of Votes'])
-#     for c in sorted_d:
-#             csvwriter.writerow([f"{c[1]}", f"{(c[0]/totalVotes)*100:2.2f}", f"{c[0]}"])
-#     csvwriter.writerow(["-----------------------------------------"])
-#     csvwriter.writerow([f"1st Advancing Candidate: {sorted_d[0][1]}"])
-#     csvwriter.writerow([f"2nd Advancing Candidate: {sorted_d[1][1]}"])
-#     csvwriter.writerow(["-----------------------------------------"])
 
 # # # Houston Mayoral Election Results
 # # -----------------------------------------

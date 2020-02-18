@@ -1,5 +1,8 @@
 # Python PyElections and PyBank 
 ## PyElections Solution (in folder PyPoll) :office:
+_input file is called houston_election_data.csv_ 
+*python solution is in main.py*
+_output file is called houston_election_results.txt_
 This challenge addresses the problem of helping the city of Houston modernize its vote-counting process for the next mayoral elections. No candidate won a majority (over 50%) of the vote during the general election that took place on November 5, 2019. The 2019 Houston mayoral election was decided by a runoff on December 14, 2019 to elect the Mayor of Space City. 
 The scope of this project was to write a script that will decide the two candidates with the highest number of votes who will advance to the runoff election. 
 
@@ -15,6 +18,9 @@ The scope of this project was to write a script that will decide the two candida
 	*Data is written to an output file, if the file exists it is overwritten, otherwise a new file is created. 
 
 ## PyFinances Solution (in folder PyBank) :dollar:
+_input file is called .csv_ 
+*python solution is in main.py*
+_output file is called .txt_
 The task is to create a Python script for analyzing the financial records of your company. A set of financial data called budget_data.csv is provide. The dataset is composed of two columns: Profit/Losses and Date. 
 
 * The Python script analyzes the records to calculate each of the following:
@@ -27,5 +33,4 @@ The task is to create a Python script for analyzing the financial records of you
 The script prints the analysis to the terminal and exports a text file with the results. If the file exists it is overwritten, otherwise a new file is created. 
 
 
-*This text will be italic*
 _This will also be italic_
