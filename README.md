@@ -14,7 +14,7 @@ The scope of this project was to write a script that will decide the two candida
 * Election data is printed to both the terminal and to a text file. 
 	*Data is written to an output file, if the file exists it is overwritten, otherwise a new file is created. 
 
-## PyFinances Solution (in folder PyBank)
+## PyFinances Solution (in folder PyBank) :dollar:
 The task is to create a Python script for analyzing the financial records of your company. A set of financial data called budget_data.csv is provide. The dataset is composed of two columns: Profit/Losses and Date. 
 
 * The Python script analyzes the records to calculate each of the following:
