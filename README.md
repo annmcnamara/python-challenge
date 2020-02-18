@@ -1,6 +1,7 @@
-# Python Homework 
+<H1>Python Homework 
+_Ann McNamara, February 2020_
 
-# PyElections
+## PyElections
 ## Problem Statement
 In this challenge, you are tasked with helping the city of Houston modernize its vote-counting process for the next mayoral elections. No candidate won a majority (over 50%) of the vote during the general election that took place on November 5, 2019. The 2019 Houston mayoral election was decided by a runoff on December 14, 2019 to elect the Mayor of Space City. 
 However, your job is to only write a script that will decide the two candidates with the highest number of votes who will advance to the runoff election. Houstonians are counting on you!
