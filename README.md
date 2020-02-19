@@ -1,8 +1,9 @@
 # Python PyElections and PyBank 
 ## PyElections Solution (in folder PyPoll) :office:
-_input file is called houston_election_data.csv_ 
-*python solution is in main.py*
-_output file is called houston_election_results.txt_
+* _input file is called houston_election_data.csv_ 
+* *python solution is in main.py*
+* _output file is called houston_election_results.txt_
+
 This challenge addresses the problem of helping the city of Houston modernize its vote-counting process for the next mayoral elections. No candidate won a majority (over 50%) of the vote during the general election that took place on November 5, 2019. The 2019 Houston mayoral election was decided by a runoff on December 14, 2019 to elect the Mayor of Space City. 
 The scope of this project was to write a script that will decide the two candidates with the highest number of votes who will advance to the runoff election. 
 
