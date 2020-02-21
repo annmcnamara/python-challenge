@@ -16,7 +16,7 @@ The scope of this project was to write a script that will decide the two candida
 	* The total number of votes each candidate won
 * In additon the names of the two candidates who will advance to the runoff election are printed. 
 * Election data is printed to both the terminal and to a text file. 
-	*Data is written to an output file, if the file exists it is overwritten, otherwise a new file is created. 
+	* Data is written to an output file, if the file exists it is overwritten, otherwise a new file is created. 
 
 ## PyFinances Solution (in folder PyBank) :dollar:
 * _input file is called .csv_ 
@@ -31,5 +31,6 @@ The task is to create a Python script for analyzing the financial records of you
 	* The greatest increase in profits (date and amount) over the entire period
 	* The greatest decrease in losses (date and amount) over the entire period)
 
-The script prints the analysis to the terminal and exports a text file with the results. If the file exists it is overwritten, otherwise a new file is created. 
+* The script prints the analysis to the terminal and exports a text file with the results. 
+	* If the file exists it is overwritten, otherwise a new file is created. 
 

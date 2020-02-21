@@ -76,10 +76,10 @@ if(fileExists):
     #first check if the file exists
     writeFileExists = os.path.isfile(txt_output_path)
     #set the open mode accordingly
-    if(writeFileExists):
-        openMode = 'w'
-    else:
-        openMode = 'x'
+    openMode = 'w'              #set the open mode to write
+    if not (writeFileExists):   #if the file does not exist
+        openMode = 'x'          #set the open mode to creation
+                                #otherwise it just stays as write mode
     with open(txt_output_path, openMode) as outputFile:
     #print formated results to a text file
         outputFile.write("\nHouston Mayoral Election Results \n")
@@ -87,9 +87,11 @@ if(fileExists):
         outputFile.write(f"Total Cast Votes:{totalVotes} \n")
         outputFile.write("----------------------------------------- \n")
 
+        #loop through each value in the sorted dictionary
         for c in sorted_d:
             outputFile.write(f"{c[1]}: {(c[0]/totalVotes)*100:2.2f} ({c[0]}) \n")
 
+        #output the run off candidates
         outputFile.write("----------------------------------------- \n")
         outputFile.write(f"1st Advancing Candidate: {sorted_d[0][1]} \n")
         outputFile.write(f"2nd Advancing Candidate: {sorted_d[1][1]} \n")
