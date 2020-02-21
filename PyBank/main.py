@@ -7,6 +7,11 @@
 # The greatest increase in profits (date and amount) over the entire period
 # The greatest decrease in losses (date and amount) over the entire period
 
+import os
+import csv
+
+
+
 def countUnique(theArray): 
   
     # intilize a null list 
@@ -19,38 +24,62 @@ def countUnique(theArray):
             unique_list.append(x) 
     return len(unique_list)
 
-import csv
+csvpath = os.path.join('.', 'budget_data.csv')
+
 
 #declare variables
-profitLoss = [] #array to hold profit and loss data
+#profitLoss = [] #array to hold profit and loss data
 dates = []      #arry to hold dates
+d = {}
+# headerRow = True
+# #read each row into sepaparte array
+# with open('budget.csv') as csvfile:
+#     readCSV = csv.reader(csvfile, delimiter=',')
+#     for row in readCSV:
+#         if (headerRow):
+#             headerRow = False
+#         else:
+#         #print(row)
+#         #print(row[0] + " " + row[1])  #for debugging
+#             profitLoss.append(int(row[0]))
+#             dates.append(row[1])
 
-headerRow = True
-#read each row into sepaparte array
-with open('budget.csv') as csvfile:
-    readCSV = csv.reader(csvfile, delimiter=',')
-    for row in readCSV:
-        if (headerRow):
-            headerRow = False
-        else:
-        #print(row)
-        #print(row[0] + " " + row[1])  #for debugging
-            profitLoss.append(int(row[0]))
-            dates.append(row[1])
+# changes = []
+# numberOfRows = len(profitLoss)
 
+
+with open(csvpath) as csvfile:
+      readCSV = csv.DictReader(csvfile, delimiter=',')
+      for row in readCSV:
+        if row['Date'] not in d:  # add the candidate to the dictionary
+            d[row['Date']] =  float(row['Profit/Losses'])  #set candidate votes to 1
+        else: ## add one
+            d[row['Date']] += 1     # if they are already in the dictionary 
+                                       # increment vote total by 1
+   
+totalMonths = len(d)
+profitLoss = sum(d.values())
+
+mylist = []
 changes = []
-numberOfRows = len(profitLoss)
+for key, value in d.items():
+    dates.append(key)
+    mylist.append(value)
 
-#print(profitLoss)
+print(mylist[0])
 
-for i in range (0, numberOfRows-1):
-    #print(f"{profitLoss[i]} {profitLoss[i+1]} {profitLoss[i]-profitLoss[i+1]}")
-    changes.append(profitLoss[i]-profitLoss[i+1])
+for i in range(0, totalMonths-1):
+    changes.append(mylist[i+1] - mylist[i])
 
-#print(sum(changes))
+
+average_change = sum(changes)/(totalMonths-1)
 
 greatestIncrease = max(changes)
 greatestDecrease = min(changes)
+
+print(greatestIncrease)
+print(greatestDecrease)
+
 
 minIndex = changes.index(greatestDecrease)
 maxIndex = changes.index(greatestIncrease)
@@ -58,11 +87,12 @@ maxIndex = changes.index(greatestIncrease)
 print(" ")
 print("Financial Analysis")
 print("----------------------------")
-print("Total Months: ", countUnique(dates))
-print("Total:   $" + str(sum(profitLoss)))
-print("Average Change: $",sum(changes) / (numberOfRows-1))
-print(f"Greatest Increase in Profits: {dates[maxIndex]} (${greatestIncrease})) ")
-print(f"Greatest Decrease in Profits: {dates[minIndex]} (${greatestDecrease})) ")
+print("Total Months: ", totalMonths)
+print(f"Total:   ${profitLoss:2.0f}")
+print(f"Average Change: ${average_change:2.2f}")
+print(f"Greatest Increase in Profits: {dates[maxIndex+1]} (${greatestIncrease:2.0f}) ")
+print(f"Greatest Decrease in Profits: {dates[minIndex+1]} (${greatestDecrease:2.0f}) ")
+
 
 # # The average of the changes in "Profit/Losses" over the entire period
 # Financial Analysis
