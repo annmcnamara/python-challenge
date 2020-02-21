@@ -65,7 +65,9 @@ if(fileExists):
 
     # In a run off the two candidates with the most 
     # votes proceed to a second round
-    #print formated results to the screen
+    # print formated results to the screen
+    # As the dictionary is sorted by votes the first two rows represent the 
+    # Advancing Candidates
 
     print("-----------------------------------------")
     print(f"1st Advancing Candidate: {sorted_d[0][1]}")
