@@ -61,7 +61,7 @@ if(fileExists):
     print("----------------------------------------- ")
 
     for c in sorted_d:
-     print(f"{c[1]}: {(c[0]/totalVotes)*100:2.2f} ({c[0]}) ")
+     print(f"{c[1]}: {(c[0]/totalVotes)*100:2.2f}% ({c[0]}) ")
 
     # In a run off the two candidates with the most 
     # votes proceed to a second round
@@ -91,7 +91,7 @@ if(fileExists):
 
         #loop through each value in the sorted dictionary
         for c in sorted_d:
-            outputFile.write(f"{c[1]}: {(c[0]/totalVotes)*100:2.2f} ({c[0]}) \n")
+            outputFile.write(f"{c[1]}: {(c[0]/totalVotes)*100:2.2f}% ({c[0]}) \n")
 
         #output the run off candidates
         outputFile.write("----------------------------------------- \n")
