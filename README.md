@@ -1,4 +1,4 @@
-# Python PyElections and PyBank 
+# Python Homework: PyElections and PyBank 
 ## PyElections Solution (in folder PyPoll) :office:
 * _input file is called houston_election_data.csv_ 
 * *python solution is in main.py*
@@ -14,7 +14,7 @@ The scope of this project was to write a script that will decide the two candida
 	* A complete list of candidates who received votes
 	* The percentage of votes each candidate won
 	* The total number of votes each candidate won
-* In additon the names of the two candidates who will advance to the runoff election are printed. In a run off the two candidates with the most votes proceed to a second round
+* In additon the names of the two candidates who will advance to the run off election are printed. In a run off the two candidates with the most votes proceed to a second round
 * Election data is printed to both the terminal and to a text file. 
 	* Data is written to an output file, if the file exists it is overwritten, otherwise a new file is created. 
 
