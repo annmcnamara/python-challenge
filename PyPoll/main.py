@@ -13,21 +13,27 @@
 # Print the names of the two candidates who will 
 # advance to the runoff election.
 
-# Data is written to an output file
-# if the file exists it is overwritten
-# otherwise it is created
+# Data is written to an output file.
+# If the file exists it is overwritten
+# otherwise ia new ouput file is is created
 
+
+#import dependancies
 import csv
 import os
-#initialize paths for reading and writing files
-csvpath = os.path.join('.', 'houston_election_data.csv')
-txt_output_path = os.path.join(".", "houston_election_results.txt")
 
-#check input fle  files
+#make references to paths for reading and writing files
+csvpath = os.path.join('.', 'houston_election_data.csv')  #input file
+txt_output_path = os.path.join(".", "houston_election_results.txt")  #output file
+
+#check input file exist
+#if the file is not found display an error mesage
 fileExists = os.path.isfile(csvpath) 
 if(fileExists):
     totalVotes = 0      #holds total votes, initialize to 0
-    d = {}              #candidate dictionary.  Key is candidate name, value is populated with accumulated votes
+    d = {}              #candidate dictionary.  
+                        # Key is candidate name, 
+                        # value is populated with accumulated votes
 
     #read each row populating the dictionary with unique candidate names
     #and accumulating the number of votes
@@ -39,15 +45,14 @@ if(fileExists):
         else: ## add one
             d[row['Candidate']] += 1   # if they are already in the dictionary 
                                        # increment vote total by 1
-   
-
+    #end with
 
     #sum total votes
     totalVotes = sum(d.values())
 
-    #sort the dictionary on value
+    #sort the dictionary on value using list comprehension
+    #note this will flip the order of key and value
     sorted_d = sorted(((value, key) for (key,value) in d.items()), reverse=True)
-
 
     #print formated results to the screen
     print("\nHouston Mayoral Election Results ")
@@ -67,9 +72,10 @@ if(fileExists):
     print(f"2nd Advancing Candidate: {sorted_d[1][1]}")
     print("-----------------------------------------")
 
-
+    #print formated results to the screen
+    #first check if the file exists
     writeFileExists = os.path.isfile(txt_output_path)
-
+    #set the open mode accordingly
     if(writeFileExists):
         openMode = 'w'
     else:
@@ -83,14 +89,15 @@ if(fileExists):
 
         for c in sorted_d:
             outputFile.write(f"{c[1]}: {(c[0]/totalVotes)*100:2.2f} ({c[0]}) \n")
+
         outputFile.write("----------------------------------------- \n")
         outputFile.write(f"1st Advancing Candidate: {sorted_d[0][1]} \n")
         outputFile.write(f"2nd Advancing Candidate: {sorted_d[1][1]} \n")
         outputFile.write("----------------------------------------- \n")
-else:
+else: #the input file does not exist
     print(f"ERROR: INPUT FILE {csvpath} does not exist, please check your path and filename")
 
-
+# SAMPLE OUTPUT
 # # # Houston Mayoral Election Results
 # # -----------------------------------------
 # # Total Cast Votes: 241032
