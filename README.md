@@ -19,9 +19,9 @@ The scope of this project was to write a script that will decide the two candida
 	* Data is written to an output file, if the file exists it is overwritten, otherwise a new file is created. 
 
 ## PyFinances Solution (in folder PyBank) :dollar:
-* _input file is called .csv_ 
+* _input file is called budget_data.csv_ 
 * *python solution is in main.py*
-* _output file is called .txt_
+* _output file is called budget_results.txt_
 The task is to create a Python script for analyzing the financial records of your company. A set of financial data called budget_data.csv is provide. The dataset is composed of two columns: Profit/Losses and Date. 
 
 * The Python script analyzes the records to calculate each of the following:
