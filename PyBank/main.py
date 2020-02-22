@@ -28,7 +28,7 @@ def printResults(toLocation):
     toLocation.write(f"Greatest Decrease in Profits: {dates[minIndex+1]} (${greatestDecrease:2.0f})\n")
 
 #make references to paths for reading and writing files
-csvpath = os.path.join('.', 'budget_data.csv')              #input file
+csvpath = os.path.join('.','Resources', 'budget_data.csv')              #input file
 txt_output_path = os.path.join(".", "budget_results.txt")   # output file
 
 #declare and initialize variables

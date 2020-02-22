@@ -23,7 +23,7 @@ import csv
 import os
 
 #make references to paths for reading and writing files
-csvpath = os.path.join('.', 'houston_election_data.csv')  #input file
+csvpath = os.path.join('.', 'Resources', 'houston_election_data.csv')  #input file
 txt_output_path = os.path.join(".", "houston_election_results.txt")  #output file
 
 #check input file exist
@@ -44,7 +44,8 @@ if(fileExists):
             d[row['Candidate']] = 1    #set candidate votes to 1
         else: ## add one
             d[row['Candidate']] += 1   # if they are already in the dictionary 
-                                       # increment vote total by 1
+                                       # increment vote total byls
+                                       #  1
     #end with
 
     #sum total votes
