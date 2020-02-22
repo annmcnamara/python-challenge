@@ -33,9 +33,10 @@ txt_output_path = os.path.join(".", "budget_results.txt")   # output file
 
 #declare and initialize variables
 dates = []          #array to hold uniquedates
-d = {}              #dictionary to hold key, value (date, amount) pairs
 profitOrLoss = []   #set up an empty array to hold the individual values
 changes = []        #Array to hold increase/decrease from month to month
+d = {}              #dictionary to hold key, value (date, amount) pairs
+
 
 fileExists = os.path.isfile(csvpath) 
 if(fileExists):  #process the file
@@ -50,13 +51,14 @@ if(fileExists):  #process the file
     with open(csvpath) as csvfile:
       readCSV = csv.DictReader(csvfile, delimiter=',')
       for row in readCSV:
-        if row['Date'] not in d:  # add the candidate to the dictionary
-            d[row['Date']] =  float(row['Profit/Losses'])  #set candidate votes to 1
-        else: ## add one
-            d[row['Date']] += 1     # if they are already in the dictionary 
-                                       # increment vote total by 1
+        # Because the dates are unique I can just read them right in
+        #if row['Date'] not in d:  # add the date to the dictionary
+        d[row['Date']] =  float(row['Profit/Losses'])  # 
+        #else: ## add the total
+        #    d[row['Date']] += 1     # if they are already in the dictionary 
+                                       # increment vote total by the profit/loss
    
-    totalMonths = len(d)    #set the total month to the length of the dictionary
+    totalMonths = len(d)    #set the total months to the length of the dictionary
     profitLoss = sum(d.values())    #set profitLoss to the sum of all teh values
 
     #break out the dictionary into two arrays for computation
@@ -65,7 +67,7 @@ if(fileExists):  #process the file
       profitOrLoss.append(value)
 
     #populate the changes array with the differences in profit and loss from month to month
-    for i in range(0, totalMonths-1):
+    for i in range(0, totalMonths-1):   #array runs from 0 to n-1
         changes.append(profitOrLoss[i+1] - profitOrLoss[i])
    
     #calculate the average change
