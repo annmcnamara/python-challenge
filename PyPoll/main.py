@@ -17,17 +17,18 @@
 # If the file exists it is overwritten
 # otherwise ia new ouput file is is created
 
-
 #import dependancies
 import csv
 import os
 
 #make references to paths for reading and writing files
 csvpath = os.path.join('.', 'Resources', 'houston_election_data.csv')  #input file
-txt_output_path = os.path.join(".", "houston_election_results.txt")  #output file
+txt_output_path = os.path.join(".", "houston_election_results.txt")    #output file
 
-#check input file exist
-#if the file is not found display an error mesage
+# Check first that the input file exists
+# if the file exists then continue with processing
+# otherwise, the file is not found display an error mesage
+
 fileExists = os.path.isfile(csvpath) 
 if(fileExists):
     totalVotes = 0      #holds total votes, initialize to 0
@@ -35,27 +36,26 @@ if(fileExists):
                         # Key is candidate name, 
                         # value is populated with accumulated votes
 
-    #read each row populating the dictionary with unique candidate names
-    #and accumulating the number of votes
+    # Read each row populating the dictionary with unique candidate names
+    # as we go and accumulating the number of votes
     with open(csvpath) as csvfile:
-      readCSV = csv.DictReader(csvfile, delimiter=',')
-      for row in readCSV:
+      readCSV = csv.DictReader(csvfile, delimiter=',') #using DictReader takes care of headers
+      for row in readCSV:              # As we read in each row
         if row['Candidate'] not in d:  # add the candidate to the dictionary
             d[row['Candidate']] = 1    #set candidate votes to 1
         else: ## add one
             d[row['Candidate']] += 1   # if they are already in the dictionary 
-                                       # increment vote total byls
-                                       #  1
+                                       # increment vote total by 1
     #end with
 
     #sum total votes
     totalVotes = sum(d.values())
 
-    #sort the dictionary on value using list comprehension
-    #note this will flip the order of key and value
+    # Sort the dictionary on value using list comprehension
+    # Note: this will flip the order of key and value
     sorted_d = sorted(((value, key) for (key,value) in d.items()), reverse=True)
 
-    #print formated results to the screen
+    # Output formated results to the screen
     print("\nHouston Mayoral Election Results ")
     print("----------------------------------------- ")
     print(f"Total Cast Votes:{totalVotes}")
@@ -75,14 +75,14 @@ if(fileExists):
     print(f"2nd Advancing Candidate: {sorted_d[1][1]}")
     print("-----------------------------------------")
 
-    #print formated results to the screen
-    #first check if the file exists
+    # Print formated results to the a text file
+    # First check if the file exists
     writeFileExists = os.path.isfile(txt_output_path)
-    #set the open mode accordingly
-    openMode = 'w'              #set the open mode to write
-    if not (writeFileExists):   #if the file does not exist
-        openMode = 'x'          #set the open mode to creation
-                                #otherwise it just stays as write mode
+    # Set the open mode accordingly
+    openMode = 'w'              # Set the open mode to write by defauld
+    if not (writeFileExists):   # If the file does not exist
+        openMode = 'x'          # then set the open mode to creation
+                                # otherwise it just stays as write mode
     with open(txt_output_path, openMode) as outputFile:
     #print formated results to a text file
         outputFile.write("\nHouston Mayoral Election Results \n")
@@ -99,10 +99,11 @@ if(fileExists):
         outputFile.write(f"1st Advancing Candidate: {sorted_d[0][1]} \n")
         outputFile.write(f"2nd Advancing Candidate: {sorted_d[1][1]} \n")
         outputFile.write("----------------------------------------- \n")
+    # end with
 else: #the input file does not exist
     print(f"ERROR: INPUT FILE {csvpath} does not exist, please check your path and filename")
 
-# SAMPLE OUTPUT
+# # SAMPLE OUTPUT
 # # # Houston Mayoral Election Results
 # # -----------------------------------------
 # # Total Cast Votes: 241032

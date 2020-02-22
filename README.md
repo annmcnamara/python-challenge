@@ -1,6 +1,6 @@
 # Python Homework: PyElections and PyBank 
 ## PyElections Solution (in folder PyPoll) :office:
-* _input file is called houston_election_data.csv_ 
+* _input file is in folder Resources and is called houston_election_data.csv_ 
 * *python solution is in main.py*
 * _output file is called houston_election_results.txt_
 
@@ -19,7 +19,7 @@ The scope of this project was to write a script that will decide the two candida
 	* Data is written to an output file, if the file exists it is overwritten, otherwise a new file is created. 
 
 ## PyFinances Solution (in folder PyBank) :dollar:
-* _input file is called budget_data.csv_ 
+* _input file is in folder Resources and and is called budget_data.csv_ 
 * *python solution is in main.py*
 * _output file is called budget_results.txt_
 The task is to create a Python script for analyzing the financial records of your company. A set of financial data called budget_data.csv is provide. The dataset is composed of two columns: Profit/Losses and Date. 

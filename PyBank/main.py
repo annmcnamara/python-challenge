@@ -13,12 +13,12 @@
 #import dependancies
 import os
 import csv
-import sys
+import sys  # I need this because I wanted std out and wrote a function to print results
 
 def printResults(toLocation):
-    ##function to print results
-    ##takes output stream as a parameter called toLocation
-    #toLocation is either standard output or a filename reference
+    # function to print results
+    # takes an output stream as a parameter called toLocation
+    # toLocation is either standard output or a filename reference
     toLocation.write("Financial Analysis \n")
     toLocation.write("----------------------------\n")
     toLocation.write(f"Total Months: {totalMonths}\n")
@@ -27,46 +27,37 @@ def printResults(toLocation):
     toLocation.write(f"Greatest Increase in Profits: {dates[maxIndex+1]} (${greatestIncrease:2.0f})\n")
     toLocation.write(f"Greatest Decrease in Profits: {dates[minIndex+1]} (${greatestDecrease:2.0f})\n")
 
-#make references to paths for reading and writing files
-csvpath = os.path.join('.','Resources', 'budget_data.csv')              #input file
+# Createmake references to paths for reading and writing files
+csvpath = os.path.join('.','Resources', 'budget_data.csv')  #input file
 txt_output_path = os.path.join(".", "budget_results.txt")   # output file
 
 #declare and initialize variables
-dates = []          #array to hold uniquedates
-profitOrLoss = []   #set up an empty array to hold the individual values
-changes = []        #Array to hold increase/decrease from month to month
-d = {}              #dictionary to hold key, value (date, amount) pairs
+dates = []          # array to hold dates
+profitOrLoss = []   # set up an empty array to hold the individual values
+changes = []        # Array to hold increase/decrease from month to month
 
+totalMonths = 0     # A variable to hold the number of months, initialized to 0
 
-fileExists = os.path.isfile(csvpath) 
-if(fileExists):  #process the file
+fileExists = os.path.isfile(csvpath) # Check if the file exists - this returns True/False
+if(fileExists):  # The file exists, continue with processing the data
     totalVotes = 0      #holds total votes, initialize to 0
-    d = {}              #candidate dictionary.  
-                        # Key is candidate name, 
-                        # value is populated with accumulated votes
-
-    #read each row populating the dictionary with unique candidate names
-    #and accumulating the number of votes
+ 
+    #read each row populating two arrays with dates and profit/losses
+    #and accumulating the number of months
 
     with open(csvpath) as csvfile:
-      readCSV = csv.DictReader(csvfile, delimiter=',')
-      for row in readCSV:
-        # Because the dates are unique I can just read them right in
-        #if row['Date'] not in d:  # add the date to the dictionary
-        d[row['Date']] =  float(row['Profit/Losses'])  # 
-        #else: ## add the total
-        #    d[row['Date']] += 1     # if they are already in the dictionary 
-                                       # increment vote total by the profit/loss
-   
-    totalMonths = len(d)    #set the total months to the length of the dictionary
-    profitLoss = sum(d.values())    #set profitLoss to the sum of all teh values
+      readCSV = csv.reader(csvfile, delimiter=',')  
+      headers = next(readCSV)   # clear the header row
+      for row in readCSV:       # for each row
+          totalMonths += 1      # keep a running total of the number of months
+          #populate two arrays using the read in data
+          dates.append(row[1])
+          profitOrLoss.append(float(row[0]))
 
-    #break out the dictionary into two arrays for computation
-    for key, value in d.items():
-      dates.append(key)
-      profitOrLoss.append(value)
+    # Sum all profit and loss
+    profitLoss = sum(profitOrLoss)    #sum all the amounts for total profit/loss
 
-    #populate the changes array with the differences in profit and loss from month to month
+    #populate a changes array with the differences in profit and loss from month to month
     for i in range(0, totalMonths-1):   #array runs from 0 to n-1
         changes.append(profitOrLoss[i+1] - profitOrLoss[i])
    
@@ -82,26 +73,26 @@ if(fileExists):  #process the file
     minIndex = changes.index(greatestDecrease)
     maxIndex = changes.index(greatestIncrease)
 
-    #output results to the screen
-    #I wrote a function to do this just to practice
-    #the function accepts a single pararmeter that holds where to output the data
+    # Output results to the screen 
+    # I wrote a function to do this just to practice
+    # the function accepts a single pararmeter that holds where to output the data
     printResults(sys.stdout)  #pass standard output
 
-    #output the results to a file
-    #after first checking if it exist to determine the mode to open the file
-    #If the file exists it is opened for write and overwritten
-    #otherwise a new file is created
+    # Output the results to a file
+    # after first checking if it exist to determine the mode to open the file
+    # If the file exists it is opened for write and overwritten
+    # otherwise a new file is created
     writeFileExists = os.path.isfile(txt_output_path)
-    #set the open mode accordingly
-    openMode = 'w'  #set the mode to write
-    if not (writeFileExists):   #if the file doesnt exist
-        openMode = 'x'          #then set the mode to "exclusive creation"
+    # set the open mode accordingly
+    openMode = 'w'              # Set the mode to write by defauld
+    if not (writeFileExists):   # if the file doesnt exist
+        openMode = 'x'          # then set the mode to "exclusive creation"
                                 # a new file will be created if it doesnt exist
-    with open(txt_output_path, openMode) as outputFile:
+    with open(txt_output_path, openMode) as outputFile: #open the file
           printResults(outputFile)  #pass output file handle
 
-else: #the input file does not exist
-    #output an error message
+else: # The input file does not exist 
+      # output an error message
     print(f"ERROR: INPUT FILE {csvpath} does not exist, please check your path and filename")
 
 # SAMPLE OUTPUT
